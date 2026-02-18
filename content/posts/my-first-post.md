@@ -5,10 +5,4 @@ draft = false
 +++
 
 这是我的第一篇技术文章。
-
-### 代码示例
-```cpp
-#include <iostream>
-int main() {
-    return 0;
-}
+傻逼bwh看不看得见？
