@@ -1,6 +1,6 @@
 baseURL = 'https://src983.github.io/'
 languageCode = 'zh-cn'
-title = 'steel | technique'
+title = 'src983'
 theme = "PaperMod"
 
 [params]
