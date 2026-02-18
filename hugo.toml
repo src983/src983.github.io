@@ -1,0 +1,8 @@
+baseURL = 'https://src983.github.io/'
+languageCode = 'zh-cn'
+title = 'steel | technique'
+theme = "PaperMod"
+
+[params]
+    defaultTheme = "auto" 
+    showCodeCopyButtons = true 
