@@ -2,8 +2,12 @@ baseURL = 'https://src983.github.io/'
 languageCode = 'zh-cn'
 title = 'src983'
 theme = "PaperMod"
-disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
+
+# 修正后的禁用列表
+disableKinds = ["RSS", "taxonomy", "term"]
 
 [params]
-    defaultTheme = "auto" 
-    showCodeCopyButtons = true 
+    defaultTheme = "auto"
+    showCodeCopyButtons = true
+    # 补全作者信息，防止主题找不到变量
+    author = "src983" 
