@@ -2,6 +2,7 @@ baseURL = 'https://src983.github.io/'
 languageCode = 'zh-cn'
 title = 'src983'
 theme = "PaperMod"
+disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
 
 [params]
     defaultTheme = "auto" 
