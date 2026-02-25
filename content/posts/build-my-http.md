@@ -32,3 +32,4 @@ This challenge uses HTTP/1.1.
 
 Note that each header ends in a CRLF, and the entire header section also ends in a CRLF.
 {{< /collapse >}}
+{{< /collapse >}}
