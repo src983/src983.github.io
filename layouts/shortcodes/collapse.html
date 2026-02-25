@@ -1,0 +1,20 @@
+{{- $summary := .Get "summary" -}}
+{{- $title := .Get "title" -}}
+{{- $label := cond (ne $summary nil) $summary $title -}}
+{{- if not $label -}}
+  {{- warnf "missing value for param 'summary' or 'title': %s" .Position -}}
+{{- end -}}
+
+{{- $openByDefault := .Get "openByDefault" -}}
+{{- $open := .Get "open" -}}
+{{- $isOpen := false -}}
+{{- if or (eq $openByDefault true) (eq $open true) (eq $open "true") -}}
+  {{- $isOpen = true -}}
+{{- end -}}
+
+<details class="post-collapse" {{ if $isOpen }}open{{ end }}>
+  <summary class="post-collapse__summary"><span class="post-collapse__title">{{ $label }}</span></summary>
+  <div class="post-collapse__content">
+    {{ .Inner | markdownify }}
+  </div>
+</details>
