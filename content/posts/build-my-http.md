@@ -41,7 +41,85 @@ You can ignore the contents of the request. We'll cover parsing requests in late
 This challenge uses HTTP/1.1.
 Note that each header ends in a CRLF, and the entire header section also ends in a CRLF.
 
-HTTP协议只对字节流进行解析，不做任何对字节流的传输与接收；HTTP 是纯粹的应用层协议（RFC 9110），它完全依赖 TCP（传输层）提供的可靠、面向连接的字节流通道，在 Linux/Unix 系统中，操作 TCP 连接的唯一标准接口就是 Socket API，所以第一步别的都先不谈，我们先进行socket编程实现一个监听4221端口的TCP Server
+编写HTTP Server的第一步并不是先写htpp协议解析器，而是先编写进行网络通信的服务器。因为HTTP协议只对字节流进行解析，不做任何对字节流的传输与接收；HTTP 是纯粹的应用层协议（RFC 9110），它完全依赖 TCP（传输层）提供的可靠、面向连接的字节流通道，在 Linux/Unix 系统中，所有网络通信，最终都必须通过 socket API，以及操作 TCP 连接的唯一标准接口也是 socket API，所以第一步别的都先不谈，我们先进行socket编程实现一个监听4221端口的TCP Server
+
+### code
+{{< collapse title="code" >}}
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <cstring>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+
+int main(int argc, char **argv) {
+  // Flush after every std::cout / std::cerr
+  std::cout << std::unitbuf;
+  std::cerr << std::unitbuf;
+  
+  // You can use print statements as follows for debugging, they'll be visible when running tests.
+  std::cout << "Logs from your program will appear here!\n";
+
+  int server_fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (server_fd < 0) {
+   std::cerr << "Failed to create server socket\n";
+   return 1;
+  }
+  
+  // Since the tester restarts your program quite often, setting SO_REUSEADDR
+  // ensures that we don't run into 'Address already in use' errors
+  int reuse = 1;
+  if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
+    std::cerr << "setsockopt failed\n";
+    return 1;
+  }
+  
+  struct sockaddr_in server_addr;
+  server_addr.sin_family = AF_INET;
+  server_addr.sin_addr.s_addr = INADDR_ANY;
+  server_addr.sin_port = htons(4221);
+  
+  if (bind(server_fd, (struct sockaddr *) &server_addr, sizeof(server_addr)) != 0) {
+    std::cerr << "Failed to bind to port 4221\n";
+    return 1;
+  }
+  
+  int connection_backlog = 5;
+  if (listen(server_fd, connection_backlog) != 0) {
+    std::cerr << "listen failed\n";
+    return 1;
+  }
+  
+  struct sockaddr_in client_addr;
+  int client_addr_len = sizeof(client_addr);
+  
+  std::cout << "Waiting for a client to connect...\n";
+  
+  int client_fd = accept(server_fd, (struct sockaddr *) &client_addr, (socklen_t *) &client_addr_len);
+  if (client_fd < 0) {
+    std::cerr << "accept failed\n";
+    return 1;
+  }
+  std::cout << "Client connected\n";
+
+  //next step
+  <!-- const char *http_response = "HTTP/1.1 200 OK\r\n\r\n";
+  send(client_fd, http_response, strlen(http_response), 0); -->
+
+  close(client_fd);
+  close(server_fd);
+
+  return 0;
+}
+
+### Tips:
+
+
+{{< /collapse >}}
+
 
 {{< /collapse >}}
 
