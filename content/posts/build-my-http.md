@@ -36,15 +36,13 @@ To learn how HTTP works, you'll implement your server from scratch using TCP pri
 {{< /collapse >}}
 
 ### Step 0
-{{< collapse title="展开/收起 Step 0" >}}
+{{< collapse title="Step 0" >}}
 You can ignore the contents of the request. We'll cover parsing requests in later stages.
 This challenge uses HTTP/1.1.
 Note that each header ends in a CRLF, and the entire header section also ends in a CRLF.
 
 编写HTTP Server的第一步并不是先写htpp协议解析器，而是先编写进行网络通信的服务器。因为HTTP协议只对字节流进行解析，不做任何对字节流的传输与接收；HTTP 是纯粹的应用层协议（RFC 9110），它完全依赖 TCP（传输层）提供的可靠、面向连接的字节流通道，在 Linux/Unix 系统中，所有网络通信，最终都必须通过 socket API，以及操作 TCP 连接的唯一标准接口也是 socket API，所以第一步别的都先不谈，我们先进行socket编程实现一个监听4221端口的TCP Server
 
-#### code
-{{< collapse title="展开/收起 code" >}}
 ```cpp
 #include <iostream>
 #include <cstdlib>
@@ -117,12 +115,9 @@ int main(int argc, char **argv) {
 }
 
 ```
-{{< /collapse >}}
 
-#### Tips:
-{{< collapse title="展开/收起 Tips" >}}
+Tips:
 
-{{< /collapse >}}
 
 {{< /collapse >}}
 
