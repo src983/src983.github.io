@@ -105,8 +105,8 @@ int main(int argc, char **argv) {
   std::cout << "Client connected\n";
 
   //next step
-  <!-- const char *http_response = "HTTP/1.1 200 OK\r\n\r\n";
-  send(client_fd, http_response, strlen(http_response), 0); -->
+  // const char *http_response = "HTTP/1.1 200 OK\r\n\r\n";
+  // send(client_fd, http_response, strlen(http_response), 0);
 
   close(client_fd);
   close(server_fd);
